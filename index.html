@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Terminal Chat UI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="brand-panel">
+                <div class="brand-mark">
+                    <i class="fa-solid fa-terminal"></i>
+                </div>
+                <div>
+                    <p class="eyebrow">Neural Interface</p>
+                    <h1>Cipher Console</h1>
+                </div>
+            </div>
+
+            <button class="new-chat-btn" id="newChatBtn" type="button">
+                <i class="fa-solid fa-plus"></i>
+                <span>Start New Session</span>
+            </button>
+
+            <div class="status-card">
+                <div class="status-line">
+                    <span>System Status</span>
+                    <span class="online-dot"></span>
+                </div>
+                <p>Secure channel active. Response core running in simulation mode.</p>
+            </div>
+
+            <section class="panel-section">
+                <div class="panel-heading">
+                    <span>Quick Protocols</span>
+                </div>
+                <div class="chip-list">
+                    <button class="prompt-chip" type="button">Debug this code</button>
+                    <button class="prompt-chip" type="button">Summarize notes</button>
+                    <button class="prompt-chip" type="button">Generate ideas</button>
+                    <button class="prompt-chip" type="button">Plan a project</button>
+                </div>
+            </section>
+
+            <section class="panel-section">
+                <div class="panel-heading">
+                    <span>Recent Sessions</span>
+                </div>
+                <div class="history-list" id="historyList">
+                    <button class="history-item active" type="button">
+                        <i class="fa-regular fa-message"></i>
+                        <span>Welcome sequence</span>
+                    </button>
+                    <button class="history-item" type="button">
+                        <i class="fa-solid fa-code"></i>
+                        <span>Frontend tuning</span>
+                    </button>
+                    <button class="history-item" type="button">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <span>Brainstorm loop</span>
+                    </button>
+                </div>
+            </section>
+        </aside>
+
+        <main class="workspace">
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="icon-btn mobile-only" id="menuToggle" type="button" aria-label="Toggle sidebar">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div>
+                        <p class="eyebrow">AI Control Deck</p>
+                        <h2>Conversational Command Center</h2>
+                    </div>
+                </div>
+
+                <div class="topbar-actions">
+                    <div class="signal-pill">
+                        <span class="signal-dot"></span>
+                        <span>Latency Stable</span>
+                    </div>
+                    <button class="icon-btn" id="themeToggle" type="button" aria-label="Toggle visual mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <section class="hero-card welcome" id="welcomePanel">
+                <div class="hero-copy">
+                    <p class="eyebrow">Mission Ready</p>
+                    <h3>Talk to your AI like you are inside a live ops terminal.</h3>
+                    <p>
+                        Ask for code help, strategy, ideas, summaries, or debugging. This interface keeps the
+                        hacker-lab vibe while staying clean, responsive, and easy to use.
+                    </p>
+                </div>
+
+                <div class="hero-grid">
+                    <button class="suggestion-card" type="button" data-prompt="Help me debug my JavaScript errors.">
+                        <span class="card-icon"><i class="fa-solid fa-bug"></i></span>
+                        <strong>Debug Stack</strong>
+                        <small>Track bugs and trace fixes.</small>
+                    </button>
+                    <button class="suggestion-card" type="button" data-prompt="Give me 5 startup ideas in AI and education.">
+                        <span class="card-icon"><i class="fa-solid fa-bolt"></i></span>
+                        <strong>Idea Surge</strong>
+                        <small>Generate bold concepts fast.</small>
+                    </button>
+                    <button class="suggestion-card" type="button" data-prompt="Explain this coding concept in simple words.">
+                        <span class="card-icon"><i class="fa-solid fa-laptop-code"></i></span>
+                        <strong>Code Mentor</strong>
+                        <small>Learn with simpler breakdowns.</small>
+                    </button>
+                    <button class="suggestion-card" type="button" data-prompt="Create a step-by-step study plan for me.">
+                        <span class="card-icon"><i class="fa-solid fa-brain"></i></span>
+                        <strong>Study Mode</strong>
+                        <small>Plan and organize your work.</small>
+                    </button>
+                </div>
+            </section>
+
+            <section class="messages-panel" id="messagesPanel">
+                <div class="messages" id="messages"></div>
+
+                <div class="typing" id="typingIndicator" aria-live="polite">
+                    <div class="avatar ai-avatar">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="typing-bubble">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="composer">
+                <div class="composer-shell">
+                    <div class="composer-label">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span>Encrypted Prompt Input</span>
+                    </div>
+                    <div class="input-row">
+                        <textarea
+                            id="input"
+                            rows="1"
+                            placeholder="Type a message, ask for code help, or launch a new idea..."
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn" type="button">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="composer-hint">
+                        <span>Press Enter to send</span>
+                        <span>Shift + Enter for a new line</span>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/chat.js"></script>
+</body>
+</html>
